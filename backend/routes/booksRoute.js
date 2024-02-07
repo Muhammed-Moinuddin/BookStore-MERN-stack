@@ -1,12 +1,12 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-import { Book } from '../models/bookModel';
+import { Book } from '../models/bookModel.js';
 
 //Route to save books
 router.post('/', async (req, res) => {  //post method to save/add the book
     try {
         if(
-            !req.body.title || !req.body.author || !req.body.publishYear //checking that request body has all essential things
+            !req.body.title || !req.body.author || !req.body.publishYear || !req.body.image //checking that request body has all essential things
         ){
             return res.status(400).send({message: "Kindly fill all the requested details"});
         }
@@ -14,6 +14,7 @@ router.post('/', async (req, res) => {  //post method to save/add the book
             title: req.body.title,
             author: req.body.author,
             publishYear: req.body.publishYear,
+            image: req.body.image,
         }
 
         const book = await Book.create(newBook); // using that object and creating new book with help of model
@@ -41,7 +42,7 @@ router.get('/', async (req, res) => {
 //Route to get a single the books
 router.get('/:id', async (req,res) => { //using id to find a single book
     try{
-        if( !req.body.title || !req.body.author || !req.body.publishYear){
+        if( !req.body.title || !req.body.author || !req.body.publishYear || !req.body.image){
             return res.status(400).send({message: 'Kindly fill all the necessary details'});
         }
         const { id } = req.params; //destructuring id from requested URL parameters

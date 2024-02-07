@@ -13,6 +13,10 @@ const bookSchema = new mongoose.Schema(
         publishYear: {
             type: Number,
             required: true,
+        },
+        image:{
+            type: String,
+            required: true,
         }
     },
     {
@@ -20,4 +24,4 @@ const bookSchema = new mongoose.Schema(
     }
 );
 
-export const Book = mongoose.model('Cat', bookSchema);
+export const Book = mongoose.model('bookDocument', bookSchema) || mongoose.model.bookDocument ; //Create new one || if document is already present
