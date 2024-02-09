@@ -7,8 +7,9 @@ import {Book} from "./models/bookModel.js";
 
 const app = express();
 app.use(express.json()); //built-in middleware to make sure that server excpt json requests
+app.use(cors());
 // app.use(cors({  //Using Cors with custom origin
-//     origin: "http://localhost:3000/",
+//     origin: "http://localhost:5173/",
 //     methods: ["GET","PUT","POST","DELETE"],
 //     allowedHeaders: ['Content-Type'],
 // }))
