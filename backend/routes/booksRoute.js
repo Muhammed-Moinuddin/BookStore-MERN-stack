@@ -1,12 +1,26 @@
 import express from "express";
 const router = express.Router();
 import { Book } from '../models/bookModel.js';
+import multer from "multer";
+
+const fileFilter = (req, file, cb) => {
+    const allowedContentTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+
+    if (allowedContentTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type. Allowed types: jpeg, jpg, png, gif'), false)
+    }
+};
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage, fileFilter }).single('image');
 
 //Route to save books
-router.post('/', async (req, res) => {  //post method to save/add the book
+router.post('/', upload ,async (req, res) => {  //post method to save/add the book
     try {
         if(
-            !req.body.title || !req.body.author || !req.body.publishYear  //checking that request body has all essential things
+            !req.body.title || !req.body.author || !req.body.publishYear || !req.file  //checking that request body has all essential things
         ){
             return res.status(400).send({message: "Kindly fill all the requested details"});
         }
@@ -14,7 +28,10 @@ router.post('/', async (req, res) => {  //post method to save/add the book
             title: req.body.title,
             author: req.body.author,
             publishYear: req.body.publishYear,
-            image: req.body.image,
+            image: {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            },
         }
 
         const book = await Book.create(newBook); // using that object and creating new book with help of model

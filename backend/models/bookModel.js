@@ -14,7 +14,10 @@ const bookSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        
+        image: {
+            data: Buffer,
+            contentType: String,
+        }
     },
     {
         timestamps: true,

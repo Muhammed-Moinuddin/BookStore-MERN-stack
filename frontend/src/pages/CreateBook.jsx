@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Box, Grid, TextField, FormControlLabel, Checkbox, Container} from '@mui/material';
+import {Box, Grid, TextField, Container, Button, IconButton, Typography, Input} from '@mui/material';
+import {ArrowBack, ArrowForward} from '@mui/icons-material';
 import Loader from '../components/Loader';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,17 +11,19 @@ const CreateBook = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
-  const [image, setImage] = useState();
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
   const navigate = useNavigate();
+
   const handleSaveBook = () => {
-    const data = {
-      title,
-      author,
-      publishYear,
-      image
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('author', author);
+    formData.append('publishYear', publishYear);
+    formData.append('image', image);
+
     setLoading(true);
-    axios.post('http://localhost:5555/books', data)
+    axios.post('http://localhost:5555/books', formData)
         .then(() => {
             navigate('/')
         })
@@ -28,107 +31,80 @@ const CreateBook = () => {
             console.log(err);
         })
         .finally(() => {
-            // Add a delay before setting loading to false (e.g., 500 milliseconds)
-            setTimeout(() => {
-                setLoading(false);
-            }, 500);
-        });
+          // Add a delay before setting loading to false (e.g., 500 milliseconds)
+          setTimeout(() => {
+              setLoading(false);
+          }, 500);
+      });
   };
 
   return (
-    <Container sx={{mt: 20, display: 'flex', justifyContent: 'center'}}>
-      <Grid container spacing={3} sx={{width: '60%', border: '1px'}}>
-         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-          />
+    <Container sx={{mt: 20,display: 'flex', justifyContent: 'center'}}>
+      <Grid container spacing={3} sx={{width: '60%'}}>
+        <Grid item xs={12}>
+        <Button startIcon={<ArrowBack/>} variant="outlined">Back</Button>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
+          <Typography component="h1" variant='h4'>
+            Create Book
+          </Typography>
+        </Grid>
+        {loading ? <Loader/> : ''}
+         <Grid item xs={12}>
           <TextField
             required
-            id="lastName"
-            name="lastName"
-            label="Last name"
+            id="bookTitle"
+            name="bookTitle"
+            label="Book Title"
             fullWidth
-            autoComplete="family-name"
-            variant="standard"
+            variant="outlined"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             required
-            id="address1"
-            name="address1"
-            label="Address line 1"
+            id="bookAuthor"
+            name="bookAuthor"
+            label="Book Author"
             fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
+            variant="outlined"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
           />
         </Grid>
+        
         <Grid item xs={12}>
           <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
             required
-            id="city"
-            name="city"
-            label="City"
+            id="publishYear"
+            name="publishYear"
+            label="Publish Year"
             fullWidth
-            autoComplete="shipping address-level2"
-            variant="standard"
+            variant="outlined"
+            value={publishYear}
+            onChange={(e) => setPublishYear(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}> 
           <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
-          />
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          id="image-upload"
+        />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
+          <Button
+            endIcon={<ArrowForward/>}
+            variant="contained"
+            onClick={handleSaveBook}
+          >
+            Submit
+          </Button>
         </Grid>
+        
       </Grid>
     </Container>
   )

@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import {PORT, mongoDBURL} from "./config.js";
 import booksRoute from "./routes/booksRoute.js"
-import mongoose, { model } from "mongoose";
-import {Book} from "./models/bookModel.js";
+import mongoose from "mongoose";
+
 
 const app = express();
 app.use(express.json()); //built-in middleware to make sure that server excpt json requests
