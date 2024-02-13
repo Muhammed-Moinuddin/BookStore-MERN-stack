@@ -1,5 +1,6 @@
+//importing important functionalities
 import React, {useState} from 'react';
-import {Box, Grid, TextField, Container, Button, IconButton, Typography, Input} from '@mui/material';
+import {Grid, TextField, Container, Button, Typography} from '@mui/material';
 import {ArrowBack, ArrowForward} from '@mui/icons-material';
 import Loader from '../components/Loader';
 import axios from 'axios';
@@ -8,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateBook = () => {
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState(''); //creating state for title of books
+  const [author, setAuthor] = useState(''); //creating state for author of books
+  const [publishYear, setPublishYear] = useState(''); //creating state for Publish Year of books
+  const [loading, setLoading] = useState(false); //creating state for loading functionality
+  const [image, setImage] = useState(null); //creating state for image functionality
   const navigate = useNavigate();
 
   const handleSaveBook = () => {
