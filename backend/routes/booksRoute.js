@@ -20,7 +20,7 @@ const upload = multer({ storage, fileFilter }).single('image');
 router.post('/', upload ,async (req, res) => {  //post method to save/add the book
     try {
         if(
-            !req.body.title || !req.body.author || !req.body.publishYear || !req.file  //checking that request body has all essential things
+            !req.body.title || !req.body.author || !req.body.publishYear || !req.body.synopsis || !req.file  //checking that request body has all essential things
         ){
             return res.status(400).send({message: "Kindly fill all the requested details"});
         }
@@ -28,6 +28,7 @@ router.post('/', upload ,async (req, res) => {  //post method to save/add the bo
             title: req.body.title,
             author: req.body.author,
             publishYear: req.body.publishYear,
+            synopsis: req.body.synopsis,
             image: {
                 data: req.file.buffer,
                 contentType: req.file.mimetype
@@ -59,7 +60,7 @@ router.get('/', async (req, res) => {
 //Route to get a single the books
 router.get('/:id', async (req,res) => { //using id to find a single book
     try{
-        if( !req.body.title || !req.body.author || !req.body.publishYear ){
+        if( !req.body.title || !req.body.author || !req.body.publishYear || !req.body.synopsis ){
             return res.status(400).send({message: 'Kindly fill all the necessary details'});
         }
         const { id } = req.params; //destructuring id from requested URL parameters

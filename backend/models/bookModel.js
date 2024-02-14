@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//Structure for book collection
 const bookSchema = new mongoose.Schema(
     {
         title: {
@@ -12,6 +13,10 @@ const bookSchema = new mongoose.Schema(
         },
         publishYear: {
             type: Number,
+            required: true,
+        },
+        synopsis: {
+            type: String,
             required: true,
         },
         image: {

@@ -14,11 +14,6 @@ app.use(cors());
 //     allowedHeaders: ['Content-Type'],
 // }))
 app.use('/books', booksRoute); //using express.route
- 
-app.get('/' ,(req, res) => {
-    console.log(req);
-    return res.status(234).send("Welcome to MERN stack Course");
-})
 
 
 //To connect to mongodb
