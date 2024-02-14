@@ -1,10 +1,11 @@
 //importing important functionalities
 import {useState} from 'react';
 import {Grid, TextField, Container, Button, Typography} from '@mui/material';
-import {ArrowBack, ArrowForward} from '@mui/icons-material';
+import {ArrowForward} from '@mui/icons-material';
 import Loader from '../components/Loader';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 
 
 const CreateBook = () => {
@@ -37,7 +38,7 @@ const CreateBook = () => {
           // Add a delay before setting loading to false (e.g., 500 milliseconds)
           setTimeout(() => {
               setLoading(false);
-          }, 500);
+          }, 400);
       });
   };
 
@@ -45,7 +46,7 @@ const CreateBook = () => {
     <Container sx={{mt: 20,display: 'flex', justifyContent: 'center'}}>
       <Grid container spacing={3} sx={{width: {xs: '95%',sm: '80%', md: '70%' }}}>
         <Grid item xs={12}>
-        <Button component={Link} to="/" startIcon={<ArrowBack/>} variant="outlined">Back to Dashboard</Button>
+          <BackButton/>
         </Grid>
         <Grid item xs={12}>
           <Typography component="h1" variant='h4'>

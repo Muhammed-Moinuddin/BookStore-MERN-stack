@@ -36,7 +36,7 @@ const Home = () => {
             // Adding a delay before setting loading to false (e.g., 500 milliseconds)
             setTimeout(() => {
                 setLoading(false);
-            }, 500);
+            }, 400);
         });
     },[])
 
@@ -60,7 +60,7 @@ const Home = () => {
             // Add a delay before setting loading to false (e.g., 500 milliseconds)
             setTimeout(() => {
             setLoading(false);
-        }, 500);
+        }, 400);
     })  
     // After deletion, resetting the selectedBook state
     setSelectedBook(null);
