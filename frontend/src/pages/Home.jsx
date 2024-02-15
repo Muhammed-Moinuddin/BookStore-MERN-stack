@@ -2,6 +2,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Loader from '../components/Loader';
+import ImageUtils from '../components/ImageUtils';
 import {Table,TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Box, IconButton} from  '@mui/material';
 import {DeleteForever, EditNote, Info} from '@mui/icons-material';
 import DeleteBook from './DeleteBook';
@@ -19,14 +20,7 @@ const Home = () => {
         .get('http://localhost:5555/books') //hitting api
         .then((res) => { // Code executed on successful response
             setBooks(res.data.data);
-            // Extract and convert image data to base64
-            const images = res.data.data.map((book) => {
-                const bufferData = new Uint8Array(book.image.data.data);  //converts binary image data into Uint8Array (8-bit unsigned integer array).
-                const blob = new Blob([bufferData], { type: book.image.contentType }); //create binary large object (blob) from Uint8Array with specifying content type.
-                const urlCreator = window.URL || window.webkitURL; //checking web api's
-                const imageUrl = urlCreator.createObjectURL(blob);  //creating url representing blob & imageUrl is an array of URLs
-                return imageUrl;
-            });
+            const images = res.data.data.map((eachBook) => ImageUtils(eachBook));
             setImageData(images); //setting up images as state variable data
         })
         .catch((err) => { // Code executed on error

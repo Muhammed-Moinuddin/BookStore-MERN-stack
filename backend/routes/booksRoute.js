@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import mongoose from "mongoose";
 import { Book } from '../models/bookModel.js';
 import multer from "multer";
 
@@ -57,18 +58,23 @@ router.get('/', async (req, res) => {
     }
 })
 
-//Route to get a single the books
-router.get('/:id', async (req,res) => { //using id to find a single book
-    try{
-        if( !req.body.title || !req.body.author || !req.body.publishYear || !req.body.synopsis ){
-            return res.status(400).send({message: 'Kindly fill all the necessary details'});
+// Route to get a single book by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        // Ensure that the provided ID is valid before attempting to find the book
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).send({ message: 'Invalid book ID' });
         }
-        const { id } = req.params; //destructuring id from requested URL parameters
-        const book = await Book.findById(id); //simply finding it by id
+        
+        const book = await Book.findById(id);
+        if (!book) {
+            return res.status(404).send({ message: 'Book not found' }); //If book not found then send 404 error
+        }
         return res.status(200).send(book);
-    } catch(error){
+    } catch (error) {
         console.log(error.message);
-        return res.status(500).send({message: error.message});
+        return res.status(500).send({ message: error.message });
     }
 });
 
