@@ -43,7 +43,7 @@ const CreateBook = () => {
   };
 
   return (
-    <Container sx={{mt: 20,display: 'flex', justifyContent: 'center'}}>
+    <Container sx={{my: 20,display: 'flex', justifyContent: 'center'}}>
       <Grid container spacing={3} sx={{width: {xs: '95%',sm: '80%', md: '70%' }}}>
         <Grid item xs={12}>
           <BackButton/>
@@ -119,6 +119,7 @@ const CreateBook = () => {
             endIcon={<ArrowForward/>}
             variant="contained"
             onClick={handleSaveBook}
+            color='info'
           >
             Submit
           </Button>

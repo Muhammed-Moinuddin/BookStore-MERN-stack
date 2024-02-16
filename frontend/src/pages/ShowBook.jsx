@@ -6,6 +6,8 @@ import ImageUtils from '../components/ImageUtils';
 import { Card, CardContent, CardMedia, Box, Typography, Grid, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
+
+const dateOptions = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
 const ShowBook = () => {
 
     const [book, setBook] = useState({});
@@ -33,16 +35,19 @@ const ShowBook = () => {
     }, [id]);
 
     return (
-        <Box sx={{mt: 20, display: 'flex', justifyContent: 'center'}}> {/*root node*/}
+        <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="100vh"
+            >
+        <BackButton/>
          {loading ? (<Loader/>) : (  //first checking loading state before rendering data
-            // <Box sx={{display: 'flex', justifyContent: 'center', p: 1, mt: 4, width: {xs: '70%',sm: '50%', md: '40%' }}}>
-            //     <Box component="img" src={imageData}  sx={{objectFit: "contain", width: "50%", p: 2}} title={"Cover from " + book.title}></Box>
-            //     <Box><Typography variant="body1" color="initial" sx={{p: 2, width: "100%"}}>{book.synopsis}</Typography></Box>
-            // </Box>
-            <Grid container justifyContent="center" alignItems="center" component={Paper} sx={{ width: {xs: '80%',sm: '60%', md: '40%'}, padding: '20px' }}>
+            <Grid container justifyContent="center" alignItems="center" component={Paper} sx={{ width: {xs: '80%',sm: '60%', md: '40%'}, padding: '20px', boxShadow: '5px' }}> 
                 <Grid item xs={12} sm={6} >
                     {/* Textual Content */}
-                    <Typography variant="body1" color="text.secondary" sx={{pb: 3, backgroundColor: "blue" , width: "fit-content"}}>
+                    <Typography variant="body1" color="text.secondary" sx={{mb: 3, px:2, py:1, borderRadius: '25px', backgroundColor: 'secondary.main' , width: "fit-content"}}>
                         Publish Year: {book.publishYear}
                     </Typography>
                     <Typography variant="h4" sx={{pb: 0}}>
@@ -51,39 +56,22 @@ const ShowBook = () => {
                     <Typography variant="h5" color="text.secondary" sx={{pb: 3}}>
                         By {book.author}
                     </Typography>
-                    <Typography variant="body1" color="text.secondary">
+                    <Typography variant="body1" color="text.secondary" >
                         {book.synopsis}
                     </Typography>
-                    
+                    <span></span>
+                    <Typography variant="body1" color="text.secondary" sx={{pt: 3}}>
+                        <strong>Created At :</strong> {new Date(book.createdAt).toLocaleDateString(undefined, dateOptions)}
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary" sx={{pt: 3}}>
+                        <strong>Created At :</strong> {new Date(book.updatedAt).toLocaleDateString(undefined, dateOptions)}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     {/* Image */}
                     <img src={imageData} alt="Your Image" style={{ maxWidth: '100%', height: 'auto' }} />
                 </Grid>
-            </Grid>
-            // <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            //     <Grid item xs={6}>
-            //         <Card sx={{width: {xs: '70%',sm: '50%', md: '30%' }}}>
-            //             <CardMedia
-            //             sx={{objectFit: "cover"}}
-            //             image={imageData}
-            //             title={"Cover from " + book.title}
-            //             component="img"
-            //             />
-            //         </Card>   
-            //     </Grid>
-            //     <Grid item xs={6}>
-            //         <Card sx={{width: {xs: '70%',sm: '50%', md: '30%' }}}>
-            //             <CardContent>
-            //                 <Typography gutterBottom variant="h5" component="div" sx={{textTransform: 'uppercase', fontWeight: 'bold'}}>
-            //                     {book.title}
-            //                 </Typography>
-            //                 <Typography variant="body2" color="text.secondary">Synopsis: {book.synopsis} </Typography>
-            //             </CardContent>
-            //         </Card>
-            //     </Grid>
-            // </Grid>
-            
+            </Grid>    
         )}
         </Box>
     )}

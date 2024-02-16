@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Loader from '../components/Loader';
 import ImageUtils from '../components/ImageUtils';
-import {Table,TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Box, IconButton} from  '@mui/material';
+import {Table,TableHead, TableBody, TableCell, TableContainer, TableRow, Paper, Box, IconButton, Typography} from  '@mui/material';
 import {DeleteForever, EditNote, Info} from '@mui/icons-material';
 import DeleteBook from './DeleteBook';
 
@@ -37,7 +37,7 @@ const Home = () => {
     //handler for managing delete state 
     const handleDeleteClick = (bookId) => {
         setSelectedBook(bookId);
-      };
+    };
     
     //handler for Delete Confirmation
     const handleDeleteConfirm = (id) => {
@@ -64,6 +64,7 @@ const Home = () => {
     const handleDeleteCancel = () => {
     setSelectedBook(null);
     };
+
   
     return (
         <Box sx={{mt: 10, display: 'flex', justifyContent: 'center'}}> {/*root node*/}
@@ -71,14 +72,14 @@ const Home = () => {
             <TableContainer component={Paper} sx={{ m: 2, width: {xs: '95%',sm: '95%', md: '80%' }}}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     {/* Row Wise Headings */}
-                    <TableHead>
+                    <TableHead sx={{"& th": { backgroundColor: "#F18D9E"}}}>
                         <TableRow>
-                            <TableCell align="center">No</TableCell>
-                            <TableCell align="center">Cover Page</TableCell>
-                            <TableCell align="center">Title</TableCell>
-                            <TableCell align="center">Author</TableCell>
-                            <TableCell align="center">Publish Year</TableCell>
-                            <TableCell align="center">Operations</TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">NO.</Typography></TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">COVER IMAGE</Typography></TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">TITLE</Typography></TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">AUTHOR</Typography></TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">PUBLISH YEAR</Typography></TableCell>
+                            <TableCell align="center"><Typography Typography variant="h6" color="text.main">OPERATIONS</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -87,35 +88,35 @@ const Home = () => {
                             <TableRow
                             key={bookItem._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                          >
+                            >
                             <TableCell align="center">
-                                {index + 1}   {/* adding numbers in the table */}
+                                <Typography Typography variant="body1" color="text.main"> {index + 1}</Typography>   {/* adding numbers in the table */}
                             </TableCell>
-                            <TableCell align="center">
+                            <TableCell align="center" sx={{py:1, m:0}}>
                                 <img
                                     src={imageData[index]}   // using imageData state variable to fetch url source
                                     alt={`Cover for ${bookItem.title}`}  // using title for alt
-                                    style={{ maxWidth: '50px', maxHeight: '50px' }}
+                                    style={{ maxWidth: '180px', maxHeight: '180px' }}
                                 />
                             </TableCell>
-                            <TableCell align="center">{bookItem.title}</TableCell>
-                            <TableCell align="center">{bookItem.author}</TableCell>
-                            <TableCell align="center">{bookItem.publishYear}</TableCell>   
+                            <TableCell align="center"><Typography variant="body1" color="text.main">{bookItem.title}</Typography></TableCell>
+                            <TableCell align="center"> <Typography variant="body1" color="text.main">{bookItem.author}</Typography></TableCell>
+                            <TableCell align="center"><Typography variant="body1" color="text.main">{bookItem.publishYear}</Typography></TableCell>   
                             <TableCell align="center" sx={{p:0, m:0}}>
                                 {/* Operation Buttons (Delete, Edit, Info) */}
                                 <Box sx={{p:0, m:0}}>
                                     <IconButton onClick={() =>  window.location.href=`/books/details/${bookItem._id}`}>
-                                        <Info />
+                                        <Info color='primary'/>
                                     </IconButton>
                                     <IconButton onClick={() =>  window.location.href=`/books/edit/${bookItem._id}`}>
-                                        <EditNote />
+                                        <EditNote color='primary' />
                                     </IconButton>
                                     <IconButton onClick={() => handleDeleteClick(bookItem._id)}>
-                                        <DeleteForever />
+                                        <DeleteForever color='primary' />
                                     </IconButton>
                                 </Box>
                             </TableCell>
-                          </TableRow>
+                            </TableRow>
                         ))}
                     </TableBody>
                 </Table>

@@ -13,8 +13,8 @@ const Header = (props) => {
     }
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-           <Typography variant="h6" sx={{ my: 2 }}>
-                MUI
+           <Typography variant="h5" sx={{ my: 2 }}>
+                Book Store App
             </Typography>
             <Divider />
             <List>
@@ -31,9 +31,9 @@ const Header = (props) => {
 
     const container = window !== undefined ? () => window.document.body : undefined;
   return (
-    <Box sx={{ display: 'flex'}}  position="fixed">
+    <Box sx={{ display: 'flex', zIndex: 100}}>
         <CssBaseline />
-        <AppBar component="nav">
+        <AppBar component="nav" position="fixed">
             <Toolbar>
                 <IconButton
                     edge="start"
@@ -45,22 +45,24 @@ const Header = (props) => {
                     <Menu />
                 </IconButton>
                 <Typography
-                    variant="h6"
+                    variant="h5"
                     component="div"
+                    color='info'
                 >
                     Book Store App
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <ButtonGroup variant="contained" aria-label="Basic button group"sx={{ display: { xs: 'none', sm: 'block' }}}>
-                    <Button startIcon={<TableChartOutlined />}>Table View</Button>
-                    <Button startIcon={<StyleOutlined />}>Card View</Button>
+                    <Button startIcon={<TableChartOutlined />} color='info'>Table View</Button>
+                    <Button startIcon={<StyleOutlined />} color='info'>Card View</Button>
                 </ButtonGroup> 
                 <Box sx={{ flexGrow: 1 }} />
-                <Button component={Link} to="/books/create" variant="contained" aria-label="Basic button group" startIcon={<AddBox />}>
+                <Button component={Link} to="/books/create" variant="contained" aria-label="Basic button group" startIcon={<AddBox />} color='info'>
                     Add Book
                 </Button>
             </Toolbar>
         </AppBar>
+        <Toolbar/>
         <nav>
             <Drawer
                 container={container}

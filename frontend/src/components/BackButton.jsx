@@ -4,7 +4,7 @@ import {Button} from '@mui/material';
 
 const BackButton = ({destination = '/'}) => {
   return (
-    <Button component={Link} to={destination} startIcon={<ArrowBack/>} variant="outlined">Back to Dashboard</Button>
+    <Button component={Link} to={destination} startIcon={<ArrowBack/>} variant="outlined" color="success" sx={{mb: 3}}>Back to Dashboard</Button>
   )
 }
 
