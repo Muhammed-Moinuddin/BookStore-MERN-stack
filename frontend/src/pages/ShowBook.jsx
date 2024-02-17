@@ -3,7 +3,7 @@ import axios from 'axios';
 import BackButton from '../components/BackButton';
 import Loader from '../components/Loader';
 import ImageUtils from '../components/ImageUtils';
-import { Card, CardContent, CardMedia, Box, Typography, Grid, Paper } from '@mui/material';
+import {Box, Typography, Grid, Paper, Snackbar } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 
@@ -44,8 +44,8 @@ const ShowBook = () => {
             >
         <BackButton/>
          {loading ? (<Loader/>) : (  //first checking loading state before rendering data
-            <Grid container justifyContent="center" alignItems="center" component={Paper} sx={{ width: {xs: '80%',sm: '60%', md: '40%'}, padding: '20px', boxShadow: '5px' }}> 
-                <Grid item xs={12} sm={6} >
+            <Grid container justifyContent="center" alignItems="center" component={Paper} sx={{ width: {xs: '80%',sm: '60%', md: '40%'}, p: 2, boxShadow: '5px' }}> 
+                <Grid item xs={12} sm={6} sx={{p: 2}}>
                     {/* Textual Content */}
                     <Typography variant="body1" color="text.secondary" sx={{mb: 3, px:2, py:1, borderRadius: '25px', backgroundColor: 'secondary.main' , width: "fit-content"}}>
                         Publish Year: {book.publishYear}

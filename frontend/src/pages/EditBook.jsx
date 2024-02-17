@@ -1,12 +1,11 @@
 //importing important functionalities
 import {useState, useEffect} from 'react';
-import {Grid, TextField, Container, Button, Typography} from '@mui/material';
+import {Grid, TextField, Container, Button, Typography, Snackbar} from '@mui/material';
 import {ArrowForward} from '@mui/icons-material';
 import Loader from '../components/Loader';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
-
 
 const EditBook = () => {
 
@@ -16,6 +15,8 @@ const EditBook = () => {
   const [synopsis, setSynopsis] = useState(''); //creating state for Publish Year of books
   const [loading, setLoading] = useState(false); //creating state for loading functionality
   const [image, setImage] = useState(null); //creating state for image functionality
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const navigate = useNavigate();
   const {id} = useParams();
   useEffect(() => {
@@ -50,6 +51,8 @@ const EditBook = () => {
     setLoading(true);
     axios.put(`http://localhost:5555/books/${id}`, formData)
         .then(() => {
+            setSnackbarOpen(true);
+            setSnackbarMessage('Book Edited Successfully');
             navigate('/')  //change the tab on successful submission
         })
         .catch((err) => {
@@ -59,12 +62,12 @@ const EditBook = () => {
           // Add a delay before setting loading to false (e.g., 500 milliseconds)
           setTimeout(() => {
               setLoading(false);
-          }, 400);
+          }, 300);
       });
   };
 
   return (
-    <Container sx={{my: 20,display: 'flex', justifyContent: 'center'}}>
+    <Container sx={{my: 15,display: 'flex', justifyContent: 'center'}}>
       <Grid container spacing={3} sx={{width: {xs: '95%',sm: '80%', md: '70%' }}}>
         <Grid item xs={12}>
           <BackButton/>
@@ -74,9 +77,11 @@ const EditBook = () => {
             Edit Book
           </Typography>
         </Grid>
+        <Grid item xs={12}>
         {
-          loading ? <Loader item xs={12}/> : '' //first checking loading state before rendering data
+          loading ? <Loader/> : '' //first checking loading state before rendering data
         }  
+        </Grid>
          <Grid item xs={12}>
           <TextField
             required
@@ -146,8 +151,13 @@ const EditBook = () => {
             Submit
           </Button>
         </Grid>
-        
       </Grid>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={5000} // adjust as needed
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </Container>
   )
 }
