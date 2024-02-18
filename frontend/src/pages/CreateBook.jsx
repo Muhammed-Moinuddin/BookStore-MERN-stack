@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import AlertSnackbar from '../components/AlertSnackbar';
 
 
 const CreateBook = () => {
@@ -16,6 +17,7 @@ const CreateBook = () => {
   const [synopsis, setSynopsis] = useState(''); //creating state for Publish Year of books
   const [loading, setLoading] = useState(false); //creating state for loading functionality
   const [image, setImage] = useState(null); //creating state for image functionality
+  const [snackbarOpen, setSnackbarOpen] = useState(false); //state for snackbar functionality
   const navigate = useNavigate();
 
   const handleSaveBook = () => {
@@ -29,7 +31,10 @@ const CreateBook = () => {
     setLoading(true);
     axios.post('http://localhost:5555/books', formData)
         .then(() => {
-            navigate('/')  //change the tab on successful submission
+            setSnackbarOpen(true);
+            setTimeout(() => {
+            navigate('/'); // Delay navigation to allow Snackbar to be displayed
+            }, 3250);
         })
         .catch((err) => {
             console.log(err);
@@ -53,9 +58,11 @@ const CreateBook = () => {
             Create Book
           </Typography>
         </Grid>
-        {
-          loading ? <Loader item xs={12}/> : '' //first checking loading state before rendering data
-        }  
+        <Grid item xs={12}>
+          {
+            loading ? <Loader item xs={12}/> : '' //first checking loading state before rendering data
+          } 
+        </Grid> 
          <Grid item xs={12}>
           <TextField
             required
@@ -124,8 +131,8 @@ const CreateBook = () => {
             Submit
           </Button>
         </Grid>
-        
       </Grid>
+      <AlertSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message="Book Created Succesfully!"/>
     </Container>
   )
 }

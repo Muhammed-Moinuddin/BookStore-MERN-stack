@@ -64,7 +64,7 @@ const ShowBook = () => {
                         <strong>Created At :</strong> {new Date(book.createdAt).toLocaleDateString(undefined, dateOptions)}
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{pt: 3}}>
-                        <strong>Created At :</strong> {new Date(book.updatedAt).toLocaleDateString(undefined, dateOptions)}
+                        <strong>Updated At :</strong> {new Date(book.updatedAt).toLocaleDateString(undefined, dateOptions)}
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6}>

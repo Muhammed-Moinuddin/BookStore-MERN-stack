@@ -7,6 +7,7 @@ import CreateBook from './pages/CreateBook';
 import EditBook from './pages/EditBook';
 import ShowBook from './pages/ShowBook';
 import DeleteBook from './pages/DeleteBook';
+import Footer from './components/Footer';
 
 
 const theme = createTheme({
@@ -89,6 +90,7 @@ const App = () => {
          <Route path='/books/details/:id' element={<ShowBook/>}/>
          <Route path='/books/delete/:id' element={<DeleteBook/>} />
       </Routes>
+      <Footer/>
     </ThemeProvider>
   )
 }

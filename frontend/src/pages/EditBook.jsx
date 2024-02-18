@@ -1,11 +1,12 @@
 //importing important functionalities
 import {useState, useEffect} from 'react';
-import {Grid, TextField, Container, Button, Typography, Snackbar} from '@mui/material';
+import {Grid, TextField, Container, Button, Typography} from '@mui/material';
 import {ArrowForward} from '@mui/icons-material';
 import Loader from '../components/Loader';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import AlertSnackbar from '../components/AlertSnackbar';
 
 const EditBook = () => {
 
@@ -15,10 +16,10 @@ const EditBook = () => {
   const [synopsis, setSynopsis] = useState(''); //creating state for Publish Year of books
   const [loading, setLoading] = useState(false); //creating state for loading functionality
   const [image, setImage] = useState(null); //creating state for image functionality
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false); //state for snackbar functionality
   const navigate = useNavigate();
   const {id} = useParams();
+
   useEffect(() => {
     axios
     .get(`http://localhost:5555/books/${id}`)
@@ -52,8 +53,9 @@ const EditBook = () => {
     axios.put(`http://localhost:5555/books/${id}`, formData)
         .then(() => {
             setSnackbarOpen(true);
-            setSnackbarMessage('Book Edited Successfully');
-            navigate('/')  //change the tab on successful submission
+            setTimeout(() => {
+              navigate('/'); // Delay navigation to allow Snackbar to be displayed
+            }, 3250);
         })
         .catch((err) => {
             console.log(err);
@@ -61,13 +63,14 @@ const EditBook = () => {
         .finally(() => {
           // Add a delay before setting loading to false (e.g., 500 milliseconds)
           setTimeout(() => {
-              setLoading(false);
+            setLoading(false);
           }, 300);
       });
   };
 
   return (
     <Container sx={{my: 15,display: 'flex', justifyContent: 'center'}}>
+      
       <Grid container spacing={3} sx={{width: {xs: '95%',sm: '80%', md: '70%' }}}>
         <Grid item xs={12}>
           <BackButton/>
@@ -152,12 +155,7 @@ const EditBook = () => {
           </Button>
         </Grid>
       </Grid>
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={5000} // adjust as needed
-        onClose={() => setSnackbarOpen(false)}
-        message={snackbarMessage}
-      />
+      <AlertSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message="Book Edited Succesfully!"/>
     </Container>
   )
 }
