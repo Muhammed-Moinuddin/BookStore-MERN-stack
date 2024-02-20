@@ -40,10 +40,10 @@ const CreateBook = () => {
             console.log(err);
         })
         .finally(() => {
-          // Add a delay before setting loading to false (e.g., 500 milliseconds)
+          // Add a delay before setting loading to false (e.g., 300 milliseconds)
           setTimeout(() => {
               setLoading(false);
-          }, 400);
+          }, 300);
       });
   };
 

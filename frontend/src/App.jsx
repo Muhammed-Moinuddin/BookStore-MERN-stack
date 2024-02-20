@@ -9,33 +9,32 @@ import ShowBook from './pages/ShowBook';
 import DeleteBook from './pages/DeleteBook';
 import Footer from './components/Footer';
 
-
+//setting up font and colors
 const theme = createTheme({
-
   palette: {
     primary: {
-      light: "#66d2d2", // Lighter shade of Persian Green
+      light: "#66d2d2", 
       main: "#00A6A6",
-      dark: "#007575", // Darker shade of Persian Green
-      contrastText: '#fff', // White text on Persian Green
+      dark: "#007575", 
+      contrastText: '#fff', 
     },
     secondary: {
-      light: "#c1e9e5", // Lighter shade of Vista Blue
+      light: "#c1e9e5",
       main: "#98DBC6",
-      dark: "#6fae9c", // Darker shade of Vista Blue
-      contrastText: '#000', // Black text on Vista Blue
+      dark: "#6fae9c",
+      contrastText: '#000',
     },
     info: {
-      light: "#f7ebcc", // Lighter shade of Sunflower
+      light: "#f7ebcc",
       main: "#E6D72A",
-      dark: "#c5b827", // Darker shade of Sunflower
-      contrastText: '#000', // Black text on Sunflower
+      dark: "#c5b827",
+      contrastText: '#000',
     },
     success: {
-      light: "#f7cdd1", // Lighter shade of Marvelous
+      light: "#f7cdd1",
       main: "#F18D9E",
-      dark: "#c55767", // Darker shade of Marvelous
-      contrastText: '#000', // Black text on Marvelous
+      dark: "#c55767",
+      contrastText: '#000',
     },
   },
   typography: { 

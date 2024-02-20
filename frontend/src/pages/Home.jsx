@@ -1,4 +1,3 @@
-//importing important functionalities
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { Box } from '@mui/material';
@@ -98,10 +97,7 @@ const Home = () => {
                 handleDeleteCancel={handleDeleteCancel}
                 setSelectedBook={setSelectedBook}
             />}
-            {/* <TableView
-                
-                
-            /> */}
+            
             {selectedBook && (
                 <DeleteBook
                 isOpen={!!selectedBook}

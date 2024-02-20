@@ -1,4 +1,3 @@
-//importing important functionalities
 import {useState, useEffect} from 'react';
 import {Grid, TextField, Container, Button, Typography} from '@mui/material';
 import {ArrowForward} from '@mui/icons-material';
@@ -20,6 +19,7 @@ const EditBook = () => {
   const navigate = useNavigate();
   const {id} = useParams();
 
+  //below loading up old(data that needs to be edited) data into fields
   useEffect(() => {
     axios
     .get(`http://localhost:5555/books/${id}`)
@@ -50,6 +50,7 @@ const EditBook = () => {
     formData.append('image', image);
 
     setLoading(true);
+    //below sending request for saving new data
     axios.put(`http://localhost:5555/books/${id}`, formData)
         .then(() => {
             setSnackbarOpen(true);
@@ -70,7 +71,6 @@ const EditBook = () => {
 
   return (
     <Container sx={{my: 15,display: 'flex', justifyContent: 'center'}}>
-      
       <Grid container spacing={3} sx={{width: {xs: '95%',sm: '80%', md: '70%' }}}>
         <Grid item xs={12}>
           <BackButton/>

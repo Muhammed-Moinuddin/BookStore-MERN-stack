@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography, IconButton, ButtonGroup, Button, CssBaseline, Drawer, Divider, List, ListItem} from '@mui/material';
+import { Box, ButtonGroup, Button} from '@mui/material';
 import {TableChartOutlined, StyleOutlined} from '@mui/icons-material';
 
 const ViewTypeButton = ({onViewTypeChange}) => {

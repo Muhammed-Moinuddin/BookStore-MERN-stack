@@ -4,8 +4,7 @@ import { AppBar, Box, Toolbar, Typography, Button, CssBaseline} from '@mui/mater
 import {AddBox} from '@mui/icons-material';
 
 
-const Header = (props) => {
-
+const Header = () => {
   return (
     <Box sx={{ display: 'flex', zIndex: 100}}>
         <CssBaseline />
@@ -18,7 +17,6 @@ const Header = (props) => {
                 >
                     Book Store App
                 </Typography>
-                
                 <Box sx={{ flexGrow: 1 }} />
                 <Button component={Link} to="/books/create" variant="contained" aria-label="Basic button group" startIcon={<AddBox />} color='info'>
                     Add Book
@@ -26,7 +24,6 @@ const Header = (props) => {
             </Toolbar>
         </AppBar>
         <Toolbar/>
-        
     </Box>
   )
 }

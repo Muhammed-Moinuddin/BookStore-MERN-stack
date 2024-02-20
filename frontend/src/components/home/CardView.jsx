@@ -1,16 +1,15 @@
-import React from 'react';
-import { Box, IconButton, Typography, Paper, Card, CardMedia, CardActions, CardContent, Button, Grid } from '@mui/material';
+import { Box, IconButton, Typography, Card, CardMedia, CardActions, CardContent, Grid } from '@mui/material';
 import { DeleteForever, EditNote, Info } from '@mui/icons-material';
 import DeleteBook from '../../pages/DeleteBook';
 import Loader from '../Loader';
 
 const CardView = ({book, loading, imageData, handleDeleteClick, handleDeleteCancel, handleDeleteConfirm, selectedBook}) => {
     return (
-        <Box sx={{my: 3, display: 'flex', justifyContent: 'center'}}> {/*root node*/}
+        <Box sx={{my: 4, display: 'flex', justifyContent: 'center'}}> {/*root node*/}
          {loading ? (<Loader/>) : (  //first checking loading state before rendering data
             //
             <Grid container spacing={2} justifyContent="center" sx={{ m: 2, width: {xs: '95%',sm: '95%', md: '80%', lg: '60%' }}}>
-                {book.map((bookItem, index) => (
+                {book.map((bookItem, index) => ( //mapping through book item
                 <Grid item xs={12} sm={6} md={4} key={bookItem._id}  sx={{ justifyContent: 'center', alignItems: "center" }}>
                     <Card sx={{ maxWidth: 345 }}>
                         <CardMedia

@@ -1,6 +1,4 @@
-import React from 'react'
 import {Snackbar, Alert} from '@mui/material';
-
 
 const AlertSnackbar = ({open, onClose, message}) => {
     return (

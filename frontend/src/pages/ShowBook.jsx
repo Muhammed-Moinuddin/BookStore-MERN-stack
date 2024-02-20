@@ -3,21 +3,20 @@ import axios from 'axios';
 import BackButton from '../components/BackButton';
 import Loader from '../components/Loader';
 import ImageUtils from '../components/ImageUtils';
-import {Box, Typography, Grid, Paper, Snackbar } from '@mui/material';
+import {Box, Typography, Grid, Paper} from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 
-const dateOptions = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
+const dateOptions = {weekday: "long", year: "numeric", month: "long", day: "numeric"}; //object for date display
 const ShowBook = () => {
 
-    const [book, setBook] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [book, setBook] = useState({}); //state for setting up book data
+    const [loading, setLoading] = useState(false); //creating state for loading functionality
     const [imageData, setImageData] = useState([]); //state for setting up books data
     const {id} = useParams();
 
     useEffect(() => {
         setLoading(true);
-    
         axios.get(`http://localhost:5555/books/${id}`)
             .then((res) => {
                 setBook(res.data);
